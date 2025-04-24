@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/escapeuw/eatwhat/backend/db"
-	"github.com/escapeuw/eatwhat/backend/models"
-	"github.com/escapeuw/eatwhat/backend/handlers"
+  	"github.com/escapeuw/eatwhat/backend/models"
+  	"github.com/escapeuw/eatwhat/backend/handlers"
   )
 
   func main() {
