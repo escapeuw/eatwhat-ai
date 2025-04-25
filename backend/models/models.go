@@ -20,6 +20,8 @@ type Mood struct {
 type Feedback struct {
   gorm.Model
   UserID     uint
-  Suggestion string
+  MealName string
+  Comment string
   WasGood    bool
 }
+

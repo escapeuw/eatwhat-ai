@@ -1,6 +1,7 @@
 package handlers
 
 import (
+  "fmt"
   "github.com/gin-gonic/gin"
   "github.com/escapeuw/eatwhat/backend/db"
   "github.com/escapeuw/eatwhat/backend/models"
@@ -16,11 +17,17 @@ type SuggestionInput struct {
 }
 
 func HandleSuggest(c *gin.Context) {
+  fmt.Println("Received /api/suggest request")
+
   var input SuggestionInput
   if err := c.ShouldBindJSON(&input); err != nil {
+    fmt.Println("JSON Bind Error:", err)
+
     c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
     return
   }
+
+  fmt.Printf("Input received: %+v\n", input)
 
   user := services.FindOrCreateUserByUUID(input.UUID)
   suggestion := services.GenerateMealSuggestion(input.Mood, input.Time, input.Location)
@@ -31,6 +38,6 @@ func HandleSuggest(c *gin.Context) {
     Time:     input.Time,
     Location: input.Location,
   })
-
+  fmt.Println("Responding with suggesting:", suggestion)
   c.JSON(http.StatusOK, gin.H{"suggestion": suggestion})
 }
