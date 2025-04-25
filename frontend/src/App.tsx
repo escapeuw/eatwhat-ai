@@ -1,12 +1,31 @@
-import { useState } from 'react'
 import './App.css'
+import { useEffect, useState } from "react";
+import SuggestForm from "./components/SuggestForm.tsx";
+import ThemeToggle from "./components/ThemeToggle.tsx";
+
+import "./index.css"; // contains light/dark theme vars
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.toggle("dark", dark);
+  }, [dark]);
 
   return (
-    <div>HI this is App</div>
-  )
+    <div className="app-container">
+      {/* Top Navbar */}
+      <header className="navbar">
+        <div className="logo">eatWhat.ai</div>
+        <ThemeToggle />
+      </header>
+
+      {/* Centered Input Area */}
+      <main className="main-content">
+        <SuggestForm />
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
