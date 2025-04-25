@@ -16,7 +16,8 @@ function App() {
     <div className="app-container">
       {/* Top Navbar */}
       <header className="navbar">
-        <div className="logo">eatWhat.ai</div>
+        <div className="logo">
+          <span style={{ fontWeight: "bolder" }}>eatWhat</span>.ai</div>
         <ThemeToggle />
       </header>
 

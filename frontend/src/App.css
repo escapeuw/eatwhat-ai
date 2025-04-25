@@ -3,6 +3,11 @@
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
+  width: 1240px;
+  max-width: 100%;
+  padding: 1.25rem;
+  gap: 1rem;
+  margin: 0 auto;
 }
 
 /* Navbar */
@@ -10,14 +15,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
   background: var(--accent);
-  font-weight: 600;
 }
 
 .logo {
-  font-size: 1.5rem;
-  letter-spacing: 0.05em;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.35rem;
+  letter-spacing: -0.5px;
 }
 
 /* Main content */
@@ -26,7 +30,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3rem;
   border: 1px solid red;
 
 }

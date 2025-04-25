@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Moon, Sun } from "lucide-react";
 import "./ThemeToggle.css";
 
 function ThemeToggle() {
@@ -9,6 +10,7 @@ function ThemeToggle() {
     };
 
     useEffect(() => {
+
         document.body.classList.toggle("dark", isEnabled);
     }, [isEnabled]);
 
@@ -25,6 +27,12 @@ function ThemeToggle() {
                     checked={isEnabled}
                     onChange={toggleState}
                 />
+                {/* Sun icon on the left */}
+                <Sun size="1.15rem" className={`icon sun ${isEnabled ? "show" : "hide"}`} />
+
+                {/* Moon icon on the right */}
+                <Moon size="1.15rem" className={`icon moon ${isEnabled ? "hide" : "show"}`} />
+
             </div>
         </label>
     );
