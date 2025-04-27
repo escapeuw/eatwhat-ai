@@ -1,12 +1,12 @@
 import './App.css'
 import { useEffect, useState } from "react";
-import SuggestForm from "./components/SuggestForm.tsx";
-import ThemeToggle from "./components/ThemeToggle.tsx";
+import SuggestForm from "./components/SuggestForm";
+import ThemeToggle from "./components/ThemeToggle";
 
 import "./index.css"; // contains light/dark theme vars
 
-function App() {
-  const [dark, setDark] = useState(false);
+function App(): JSX.Element {
+  const [dark, setDark] = useState<boolean>(false);
 
   useEffect(() => {
     document.body.classList.toggle("dark", dark);
