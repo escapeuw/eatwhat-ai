@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, JSX, useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import "./ThemeToggle.css";
 
-function ThemeToggle() {
-    const [isEnabled, setIsEnabled] = useState(false);
+function ThemeToggle(): JSX.Element {
+    const [isEnabled, setIsEnabled] = useState<boolean>(false);
 
-    const toggleState = () => {
-        setIsEnabled((prevState) => !prevState);
+    const toggleState = (event: ChangeEvent<HTMLInputElement>): void => {
+        setIsEnabled(event.target.checked); // == prevState) => !prevState
     };
 
     useEffect(() => {
