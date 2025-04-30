@@ -1,5 +1,5 @@
 import './App.css'
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import SuggestForm from "./components/SuggestForm";
 import ThemeToggle from "./components/ThemeToggle";
 
