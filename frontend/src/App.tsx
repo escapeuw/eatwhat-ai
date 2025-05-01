@@ -1,6 +1,6 @@
 import './App.css'
 import { AppProvider, useAppContext } from './context/AppContext';
-import { JSX, useEffect, useState } from "react";
+import { JSX } from "react";
 import MoodForm from "./components/MoodForm";
 import Header from './components/Header';
 import LandingView from './components/LandingView';

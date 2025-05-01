@@ -1,5 +1,4 @@
 import '/src/App.css'
-import { useEffect, useState } from "react";
 import "./MoodForm.css";
 
 function MoodForm() {
