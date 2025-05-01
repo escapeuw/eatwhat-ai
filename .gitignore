@@ -1,0 +1,29 @@
+# Dependencies
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.*.local
+frontend/coverage/
+
+# Environment
+.env
+backend/.env
+backend/bin/
+backend/pkg/
+backend/coverage/
+backend/.DS_Store
+
+# Build + binary files
+*.exe
+*.out
+*.test
+
+# Go deps
+go.mod
+go.sum
+vendor/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+*.log
