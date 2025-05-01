@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -46,7 +47,10 @@ func HandleSuggest(c *gin.Context) {
 		Location: input.Location,
 	})
 	fmt.Println("Responding with suggesting:", suggestion)
-	c.JSON(http.StatusOK, gin.H{"suggestion": suggestion})
+	var parsed []map[string]string
+	_ = json.Unmarshal([]byte(suggestion), &parsed)
+	c.JSON(http.StatusOK, gin.H{"suggestion": parsed})
+
 }
 
 // after user feedback

@@ -18,19 +18,31 @@ func GenerateMealSuggestion(mood, time, location, uuid string) string {
 	userMessage := openai.ChatCompletionMessage{
 		Role: "user",
 		Content: fmt.Sprintf(
-			`I want a personalized meal recommendation. Give me the top 3 meals as a JSON array of objects.
-			
-			Each object should have:
-			- "name": the name of the meal
-			- "description": a short sentence explaining it
+			`You are a meal recommendation AI. Provide the top 3 personalized meal suggestions.
 
-			Here is my context:
-			- Mood: %s
-			- Time: %s
-			- Location: %s
-
-			For better suggestion, check recent food feedback or preferences using availabe tools`,
-			mood, time, location),
+	Use available tools if needed to retrieve user preferences or recent feedback to generate the most 
+	accurate and personalized suggestions.
+	Respond ONLY with a valid JSON array in this format:
+	
+	[
+	  {
+		"name": "Meal Name",
+		"description": "Short description of the meal."
+	  },
+	  {
+		"name": "Meal Name",
+		"description": "Short description of the meal."
+	  },
+	  {
+		"name": "Meal Name",
+		"description": "Short description of the meal."
+	  }
+	]
+	
+	Here is my context:
+	- Mood: %s
+	- Time: %s
+	- Location: %s`, mood, time, location),
 	}
 
 	// Register tools

@@ -1,11 +1,12 @@
 import '/src/App.css'
 import { useEffect, useState } from "react";
+import "./MoodForm.css";
 
-function SuggestForm() {
+function MoodForm() {
 
     return (
         <div>This is SuggestForm</div>
     );
 }
 
-export default SuggestForm;
+export default MoodForm;

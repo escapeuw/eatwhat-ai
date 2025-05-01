@@ -1,25 +1,3 @@
-/* Base styles */
-* {
-    box-sizing: border-box;
-}
-
-:root {
-    --bg: #232323;
-    --text: #dcdcdc;
-    --transition: 0.25s ease;
-}
-
-body.dark {
-    --bg: #dcdcdc;
-    --text: #232323;
-}
-
-body {
-    background: var(--bg);
-    color: var(--text);
-    transition: background-color 0.3s ease;
-}
-
 /* Visually hidden text for accessibility */
 .hidden {
     clip: rect(0 0 0 0);
