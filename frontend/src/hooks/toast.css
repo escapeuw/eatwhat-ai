@@ -1,0 +1,39 @@
+.custom-toast {
+    background: #333;
+    color: white;
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    min-width: 260px;
+    max-width: 340px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    font-family: sans-serif;
+}
+
+.custom-toast.enter {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.custom-toast.exit {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.custom-toast.destructive {
+    background: #881919;
+}
+
+.toast-title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.toast-description {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    color: #f3f3f3;
+}

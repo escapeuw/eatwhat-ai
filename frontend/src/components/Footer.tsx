@@ -1,6 +1,6 @@
 
 import React from 'react';
-import "./LandingView.css"
+import "./View.css"
 
 const Footer: React.FC = () => {
     return (

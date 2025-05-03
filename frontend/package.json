@@ -16,7 +16,9 @@
     "lucide": "^0.503.0",
     "lucide-react": "^0.503.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.2",
+    "sonner": "^2.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",

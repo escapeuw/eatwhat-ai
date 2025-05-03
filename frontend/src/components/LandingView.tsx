@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
-import "./LandingView.css"
+import "./View.css"
 import "../App.css"
 
 const LandingView: React.FC = () => {
@@ -31,7 +31,7 @@ const LandingView: React.FC = () => {
                 </button>
             </div>
 
-            {/*<div className="features-grid">
+            <div className="features-grid">
                 <div className="glass feature-card">
                     <div className="feature-icon-container">
                         <span className="text-xl">🤖</span>
@@ -55,7 +55,7 @@ const LandingView: React.FC = () => {
                     <h3 className="feature-title">Diverse Options</h3>
                     <p className="feature-description">Discover new cuisines that match your feelings</p>
                 </div>
-            </div>*/}
+            </div>
         </div>
     );
 };

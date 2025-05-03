@@ -31,8 +31,10 @@
   --radius: 0.75rem;
 
   --background-gradient:
-    radial-gradient(ellipse at top right, rgba(93, 52, 236, 0.075), transparent 50%),
-    radial-gradient(ellipse at bottom left, rgba(108, 0, 209, 0.05), transparent 50%);
+    radial-gradient(ellipse at top right, rgba(50, 40, 180, 0.12), transparent 60%),
+    radial-gradient(ellipse at bottom left, rgba(90, 60, 200, 0.10), transparent 60%);
+
+
   /* no gradient in light mode */
 }
 
@@ -73,7 +75,8 @@ body {
 
 /* Header */
 .header {
-  width: 95%;
+  max-width: 95%;
+  width: 1300px;
   padding: 1.5rem 1rem;
   margin: 0 auto;
 }
