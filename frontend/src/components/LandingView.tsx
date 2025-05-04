@@ -37,7 +37,8 @@ const LandingView: React.FC = () => {
                         <span className="text-xl">🤖</span>
                     </div>
                     <h3 className="feature-title">AI-Powered</h3>
-                    <p className="feature-description">Personalized meal suggestions based on your mood</p>
+                    <p className="feature-description">Meal suggestions powered by OpenAI, using your mood, time,
+                        location, and past choices.</p>
                 </div>
 
                 <div className="glass feature-card">
@@ -45,15 +46,15 @@ const LandingView: React.FC = () => {
                         <span className="text-xl">⚡</span>
                     </div>
                     <h3 className="feature-title">Instant Results</h3>
-                    <p className="feature-description">Get recommendations in seconds, not minutes</p>
+                    <p className="feature-description">	One click. Zero signup. Personalized results in seconds.</p>
                 </div>
 
                 <div className="glass feature-card">
                     <div className="feature-icon-container">
                         <span className="text-xl">🍜</span>
                     </div>
-                    <h3 className="feature-title">Diverse Options</h3>
-                    <p className="feature-description">Discover new cuisines that match your feelings</p>
+                    <h3 className="feature-title">Taste Memory</h3>
+                    <p className="feature-description">The more you use it, the more it learns about you.</p>
                 </div>
             </div>
         </div>
