@@ -13,9 +13,8 @@ import { v4 as uuidv4 } from 'uuid';
 import "./index.css"; // contains light/dark theme vars
 
 function AppContent(): JSX.Element {
-  const { currentView, setCurrentView, suggestions } = useAppContext();
+  const { currentView, setCurrentView, suggestions, uuid, setUuid } = useAppContext();
   const isMobile = window.innerWidth < 600;
-  const [uuid, setUuid] = useState("");
 
   // Set UUID
   useEffect(() => {

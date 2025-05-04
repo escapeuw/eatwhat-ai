@@ -12,6 +12,8 @@ interface AppContextProps {
     setMood: (mood: string) => void;
     suggestions: Suggestion[] | null;
     setSuggestions: (s: Suggestion[] | null) => void;
+    uuid: string;
+    setUuid: (id: string) => void;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -22,6 +24,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     const [currentView, setCurrentView] = useState<AppState>('landing');
     const [mood, setMood] = useState('');
     const [suggestions, setSuggestions] = useState<Suggestion[] | null>(null);
+    const [uuid, setUuid] = useState("");
+
 
 
     return (
@@ -33,6 +37,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
                 setMood,
                 suggestions,
                 setSuggestions,
+                uuid,
+                setUuid,
             }}
         >
             {children}

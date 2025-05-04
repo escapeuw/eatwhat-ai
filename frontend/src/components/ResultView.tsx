@@ -32,6 +32,7 @@ const ResultView: React.FC<ResultViewProps> = ({ suggestions }) => {
                 Try Again
             </button>
         </div>
-    )
-}
+    );
+};
+
 export default ResultView
