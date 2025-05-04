@@ -28,10 +28,10 @@ function ThemeToggle(): JSX.Element {
                     onChange={toggleState}
                 />
                 {/* Sun icon on the left */}
-                <Sun size="1.15rem" className={`icon sun ${isEnabled ? "show" : "hide"}`} />
+                <Sun style={{ width: '1.15rem', height: '1.15rem' }} className={`icon sun ${isEnabled ? "show" : "hide"}`} />
 
                 {/* Moon icon on the right */}
-                <Moon size="1.15rem" className={`icon moon ${isEnabled ? "hide" : "show"}`} />
+                <Moon style={{ width: '1.15rem', height: '1.15rem' }} className={`icon moon ${isEnabled ? "hide" : "show"}`} />
 
             </div>
         </label>

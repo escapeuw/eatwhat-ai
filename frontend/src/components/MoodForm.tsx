@@ -106,11 +106,11 @@ const MoodForm: React.FC<MoodFormProps> = (props) => {
         <div className="mood-container">
             <div className="glass mood-card">
                 <div className="mood-icon">
-                    <span style={{ fontSize: "2.25rem", lineHeight: "2.5rem" }}>😋</span>
+                    <span style={{ fontSize: "2.25rem", lineHeight: "2.5rem" }}>🍽️</span>
                 </div>
 
                 <h2 className="mood-title">
-                    What is your <span className="text-gradient">mood</span> today?
+                    What is your <span className="text-gradient">mood</span> today? 😋
                 </h2>
                 <div>{location}{timeDescription}{uuid}</div>
 
@@ -143,7 +143,7 @@ const MoodForm: React.FC<MoodFormProps> = (props) => {
                                     setLocation(e.target.value);
                                     setLocationTyping(e.target.value.length > 0);
                                 }}
-                                placeholder="My brief location..."
+                                placeholder="My location is... (up to 30 letters)"
                                 className="mood-input"
                                 maxLength={30} />
                             {locationTyping && (
@@ -165,7 +165,7 @@ const MoodForm: React.FC<MoodFormProps> = (props) => {
                     </div>
 
                     <p className="mood-hint">
-                        Try: "energetic", "stressed", "celebratory", "melancholic"...
+                        Try: "energetic", "stressed and lazy", "celebratory", "melancholic"...
                     </p>
                 </form>
             </div>
