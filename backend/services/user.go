@@ -6,8 +6,13 @@ import (
 )
 
 func FindOrCreateUserByUUID(uuid string) models.User {
+	if uuid == "" {
+		panic("UUID is required but missing in FindOrCreateUserByUUID")
+	}
+
 	var user models.User
 	result := db.DB.Where("uuid = ?", uuid).First(&user)
+
 	if result.Error != nil || user.ID == 0 {
 		user = models.User{UUID: uuid}
 		db.DB.Create(&user)
