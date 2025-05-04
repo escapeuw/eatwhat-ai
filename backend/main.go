@@ -23,7 +23,7 @@ func main() {
 
 	// ✅ Add CORS middleware
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:5173", "https://dhwang.dev/eatwhat-ai"},
+		AllowOrigins:     []string{"http://localhost:5173", "https://dhwang.dev"},
 		AllowMethods:     []string{"POST", "GET", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Accept"},
 		AllowCredentials: true,
