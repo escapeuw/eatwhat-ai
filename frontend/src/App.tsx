@@ -4,14 +4,16 @@ import { JSX, useState, useEffect } from "react";
 import MoodForm from "./components/MoodForm";
 import Header from './components/Header';
 import LandingView from './components/LandingView';
+import ResultView from './components/ResultView';
 import Footer from './components/Footer';
 import { Toaster } from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
 
+
 import "./index.css"; // contains light/dark theme vars
 
 function AppContent(): JSX.Element {
-  const { currentView, setCurrentView } = useAppContext();
+  const { currentView, setCurrentView, suggestions } = useAppContext();
   const isMobile = window.innerWidth < 600;
   const [uuid, setUuid] = useState("");
 
@@ -37,6 +39,9 @@ function AppContent(): JSX.Element {
       <main className="main-content">
         {currentView === 'landing' && <LandingView />}
         {currentView === 'mood' && <MoodForm uuid={uuid} />}
+        {currentView === 'result' && suggestions && (
+          <ResultView suggestions={suggestions} />
+        )}
       </main>
       <Footer />
     </div>

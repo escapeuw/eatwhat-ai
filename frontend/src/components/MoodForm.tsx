@@ -11,13 +11,15 @@ type MoodFormProps = {
 
 const MoodForm: React.FC<MoodFormProps> = (props) => {
     const { uuid } = props;
-    const { mood, setMood } = useAppContext();
+    const { mood, setMood, setCurrentView, setSuggestions } = useAppContext();
 
     const [moodTyping, setMoodTyping] = useState(false);
     const [locationTyping, setLocationTyping] = useState(false);
     const [location, setLocation] = useState<string>("");
     const [locationError, setLocationError] = useState(false);
     const [timeDescription, setTimeDescription] = useState("");
+
+
     const OPENCAGE_API_KEY = import.meta.env.VITE_OPENCAGE_API_KEY;
 
     const getTimeDescription = () => {
@@ -50,8 +52,8 @@ const MoodForm: React.FC<MoodFormProps> = (props) => {
         }
     };
 
-
-    const handleSubmit = (e: React.FormEvent) => {
+    // call backend API (get suggestion)
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const input = mood.trim();
         if (!input) {
@@ -71,11 +73,42 @@ const MoodForm: React.FC<MoodFormProps> = (props) => {
             setMood("");
             return;
         }
+        const payload = {
+            uuid,
+            mood: input,
+            location: location.trim() || "Toronto", // fallback value
+            time: timeDescription,
+        };
 
-        toast({
-            title: "Perfect meal chosen!",
-            description: `Based on your mood: "${mood}", we've selected a meal for you.`,
-        });
+        try {
+            const res = await fetch("https://eatwhat-ai-production.up.railway.app/api/suggest", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.error || "Failed to get suggestions.");
+            }
+
+            const data = await res.json();
+            console.log("Suggestions received", data.suggestion);
+            setSuggestions(data.suggestion);  // store in state
+            setCurrentView("result"); // view change
+            setMood("");  // resets input
+
+        } catch (error: any) {
+            console.error("API error:", error);
+            toast({
+                title: "Error fetching suggestions",
+                description: error.message || "Something went wrong.",
+                variant: "destructive",
+            });
+        }
+
 
 
         // In a real app, this would trigger an API call to get recommendation
@@ -87,18 +120,48 @@ const MoodForm: React.FC<MoodFormProps> = (props) => {
     useEffect(() => {
         setTimeDescription(getTimeDescription());
 
-        navigator.geolocation.getCurrentPosition(
-            async (pos) => {
-                const { latitude, longitude } = pos.coords;
-                const readableLocation = await reverseGeocode(latitude, longitude);
-                setLocation(readableLocation);
-            },
-            (err) => {
-                console.warn("Geolocation failed:", err.message);
+        const fetchLocation = async () => {
+            try {
+                const permission = await navigator.permissions.query({
+                    name: "geolocation" as PermissionName,
+                });
+
+                if (permission.state === "denied") {
+                    // User has permanently blocked location access
+                    setLocationError(true);
+                    toast({
+                        title: "Location access blocked",
+                        description:
+                            "Please enable location access in your browser settings to detect your location automatically.",
+                        variant: "destructive",
+                    });
+                    return;
+                }
+                // permission granted, collect user's location
+                navigator.geolocation.getCurrentPosition(
+                    async (pos) => {
+                        const { latitude, longitude } = pos.coords;
+                        const readableLocation = await reverseGeocode(latitude, longitude);
+                        setLocation(readableLocation);
+                    },
+                    (err) => {
+                        console.warn("Geolocation failed:", err.message);
+                        setLocationError(true);
+                    },
+                    { timeout: 10000 }
+                );
+            } catch (err) {
+                console.error("Permission API check failed:", err);
+                toast({
+                    title: "Location check failed",
+                    description: "Unable to verify location permission. Try refreshing or manually type your location.",
+                    variant: "destructive",
+                });
                 setLocationError(true);
-            },
-            { timeout: 10000 }
-        );
+            }
+        };
+
+        fetchLocation();
 
     }, []);
 
@@ -112,7 +175,7 @@ const MoodForm: React.FC<MoodFormProps> = (props) => {
                 <h2 className="mood-title">
                     What is your <span className="text-gradient">mood</span> today? 😋
                 </h2>
-                <div>{location}{timeDescription}{uuid}</div>
+
 
                 <form onSubmit={handleSubmit} className="mood-form">
                     <div className="input-container">
