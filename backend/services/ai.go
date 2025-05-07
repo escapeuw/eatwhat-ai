@@ -20,9 +20,10 @@ func GenerateMealSuggestion(mood, time, location, uuid string) string {
 		Content: fmt.Sprintf(
 			`You are a meal recommendation AI. Provide the top 3 personalized meal suggestions.
 
-	Use available tools if needed to retrieve user preferences or recent feedback to generate the most 
-	accurate and personalized suggestions.
-	Respond ONLY with a valid JSON array in this format:
+You may use available tools to retrieve the user's recent preferences or feedback if helpful.
+However, if the tools return no data, you MUST still generate suggestions based on the user's current context.
+
+Always respond ONLY with a valid JSON array in this format:
 	
 	[
 	  {
