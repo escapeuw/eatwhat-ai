@@ -7,7 +7,7 @@ import LandingView from './components/LandingView';
 import ResultView from './components/ResultView';
 import Footer from './components/Footer';
 import { Toaster } from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4, validate as validateUuid } from 'uuid';
 
 
 import "./index.css"; // contains light/dark theme vars
@@ -19,11 +19,15 @@ function AppContent(): JSX.Element {
   // Set UUID
   useEffect(() => {
     const existingUser = localStorage.getItem("uuid");
-    if (existingUser) {
+    console.log("Loaded UUID from localStorage:", existingUser);
+
+    if (existingUser && validateUuid(existingUser)) {
+      console.log("Valid UUID, reusing.");
       setUuid(existingUser);
       setCurrentView("mood"); //skip landing view for second visit
     } else {
       const newUser = uuidv4();
+      console.log("Invalid or no UUID, generating new:", newUser);
       localStorage.setItem("uuid", newUser);
       setUuid(newUser);
       setCurrentView("landing");

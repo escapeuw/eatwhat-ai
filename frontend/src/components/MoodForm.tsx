@@ -1,6 +1,6 @@
 import '/src/App.css'
 import "./View.css";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { toast } from "../hooks/use-toast";
 
@@ -14,6 +14,7 @@ const MoodForm: React.FC<MoodFormProps> = (props) => {
     const { mood, setMood, setCurrentView, setSuggestions } = useAppContext();
 
     const [moodTyping, setMoodTyping] = useState(false);
+    const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [locationTyping, setLocationTyping] = useState(false);
     const [location, setLocation] = useState<string>("");
     const [locationError, setLocationError] = useState(false);
@@ -64,21 +65,27 @@ const MoodForm: React.FC<MoodFormProps> = (props) => {
             });
             return;
         }
-        if (/[^ㄱ-ㅎ가-힣a-zA-Z\s]/.test(input)) {
+        /*
+        const isInvalidLocation =
+            location !== "" && /[^ㄱ-ㅎ가-힣a-zA-Z\s,]/.test(location);
+
+        if (isInvalidLocation) {
             toast({
                 title: "Invalid characters",
-                description: "Only Korean and English letters are allowed.",
+                description: "Only Korean and English letters and ',' are allowed for location.",
                 variant: "destructive",
             });
-            setMood("");
+            setLocation("");
             return;
-        }
+        } */
+        console.log(uuid, input);
         const payload = {
             uuid,
             mood: input,
             location: location.trim() || "Toronto", // fallback value
             time: timeDescription,
         };
+        console.log(payload);
 
         try {
             const res = await fetch("https://eatwhat-ai-production.up.railway.app/api/suggest", {
@@ -183,8 +190,16 @@ const MoodForm: React.FC<MoodFormProps> = (props) => {
                             value={mood}
                             onChange={(e) => {
                                 setMood(e.target.value);
-                                setMoodTyping(e.target.value.length > 0);
+
+                                if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+
+                                setMoodTyping(true);
+
+                                typingTimeoutRef.current = setTimeout(() => {
+                                    setMoodTyping(false);
+                                }, 1000);
                             }}
+
                             placeholder="I'm feeling..."
                             className="mood-input"
                             maxLength={30}
@@ -204,7 +219,14 @@ const MoodForm: React.FC<MoodFormProps> = (props) => {
                                 value={location}
                                 onChange={(e) => {
                                     setLocation(e.target.value);
-                                    setLocationTyping(e.target.value.length > 0);
+
+                                    if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+
+                                    setLocationTyping(true);
+
+                                    typingTimeoutRef.current = setTimeout(() => {
+                                        setLocationTyping(false);
+                                    }, 1000);
                                 }}
                                 placeholder="My location is... (up to 30 letters)"
                                 className="mood-input"

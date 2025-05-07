@@ -27,6 +27,13 @@ type PreferenceInput struct {
 func HandleSuggest(c *gin.Context) {
 	fmt.Println("Received /api/suggest request")
 
+	// ✅ Log raw body for debug
+    body, _ := io.ReadAll(c.Request.Body)
+    fmt.Println("Raw body:", string(body))
+
+    // ✅ Reset body before binding
+    c.Request.Body = io.NopCloser(bytes.NewBuffer(body))
+
 	var input SuggestionInput
 	if err := c.ShouldBindJSON(&input); err != nil {
 		fmt.Println("JSON Bind Error:", err)
