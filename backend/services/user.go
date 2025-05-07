@@ -12,7 +12,7 @@ func FindOrCreateUserByUUID(uuid string) models.User {
 	if uuid == "" {
 		panic("UUID is required but missing in FindOrCreateUserByUUID")
 	}
-
+	uuid = strings.TrimSpace(uuid)
 	var user models.User
 	err := db.DB.Where("uuid = ?", uuid).First(&user).Error
 
