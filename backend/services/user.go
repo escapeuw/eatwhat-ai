@@ -2,7 +2,7 @@ package services
 
 import (
 	"errors"
-
+	"strings"
 	"github.com/escapeuw/eatwhat/backend/db"
 	"github.com/escapeuw/eatwhat/backend/models"
 	"gorm.io/gorm"
