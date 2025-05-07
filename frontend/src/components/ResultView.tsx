@@ -8,29 +8,33 @@ type Suggestion = {
     description: string;
 };
 type ResultViewProps = {
+    reason: string;
     suggestions: Suggestion[];
 };
 
 
-const ResultView: React.FC<ResultViewProps> = ({ suggestions }) => {
+const ResultView: React.FC<ResultViewProps> = ({ reason, suggestions }) => {
     const { setCurrentView } = useAppContext();
 
     return (
-        <div>
-            <h2>Your Top 3 Meal Suggestions 🍽️</h2>
+        <div className="result-container">
             <div>
-                {suggestions.map((item, idx) => (
-                    <div key={idx} className="glass suggestion-card">
-                        <h3>{item.name}</h3>
-                        <p>{item.description}</p>
-                    </div>
-                ))}
+                {reason}
+                <h2>Top 3 Meal Suggestions 🍽️ • Select the best one</h2>
+                <div className="suggestion-container">
+                    {suggestions.map((item, idx) => (
+                        <div key={idx} className="glass suggestion-card">
+                            <h3>{item.name}</h3>
+                            <p>{item.description}</p>
+                        </div>
+                    ))}
+                </div>
+                <button
+                    className="primary-button"
+                    onClick={() => setCurrentView('mood')}>
+                    Try Again
+                </button>
             </div>
-            <button
-                className="primary-button"
-                onClick={() => setCurrentView('mood')}>
-                Try Again
-            </button>
         </div>
     );
 };

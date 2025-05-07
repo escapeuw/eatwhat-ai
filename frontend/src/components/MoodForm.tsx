@@ -5,13 +5,8 @@ import { useAppContext } from '../context/AppContext';
 import { toast } from "../hooks/use-toast";
 
 
-type MoodFormProps = {
-    uuid: string;
-}
-
-const MoodForm: React.FC<MoodFormProps> = (props) => {
-    const { uuid } = props;
-    const { mood, setMood, setCurrentView, setSuggestions } = useAppContext();
+const MoodForm: React.FC = () => {
+    const { uuid, mood, setMood, setCurrentView, setSuggestionResponse } = useAppContext();
 
     const [moodTyping, setMoodTyping] = useState(false);
     const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -102,8 +97,10 @@ const MoodForm: React.FC<MoodFormProps> = (props) => {
             }
 
             const data = await res.json();
-            console.log("Suggestions received", data.suggestion);
-            setSuggestions(data.suggestion);  // store in state
+            console.log("typeof setSuggestionResponse:", typeof setSuggestionResponse);
+            console.log("Suggestions received", data);
+
+            setSuggestionResponse(data);  // store in state
             setCurrentView("result"); // view change
             setMood("");  // resets input
 

@@ -5,13 +5,18 @@ type Suggestion = {
     name: string;
     description: string;
 }
+type SuggestionResponse = {
+    reason: string;
+    suggestions: Suggestion[];
+};
+
 interface AppContextProps {
     currentView: AppState;
     setCurrentView: (view: AppState) => void;
     mood: string;
     setMood: (mood: string) => void;
-    suggestions: Suggestion[] | null;
-    setSuggestions: (s: Suggestion[] | null) => void;
+    suggestionResponse: SuggestionResponse | null;
+    setSuggestionResponse: (s: SuggestionResponse | null) => void;
     uuid: string;
     setUuid: (id: string) => void;
 }
@@ -23,7 +28,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
     const [currentView, setCurrentView] = useState<AppState>('landing');
     const [mood, setMood] = useState('');
-    const [suggestions, setSuggestions] = useState<Suggestion[] | null>(null);
+    const [suggestionResponse, setSuggestionResponse] = useState<SuggestionResponse | null>(null);
     const [uuid, setUuid] = useState("");
 
 
@@ -35,8 +40,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
                 setCurrentView,
                 mood,
                 setMood,
-                suggestions,
-                setSuggestions,
+                suggestionResponse,
+                setSuggestionResponse,
                 uuid,
                 setUuid,
             }}
