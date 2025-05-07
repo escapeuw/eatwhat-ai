@@ -126,22 +126,6 @@ const MoodForm: React.FC = () => {
 
         const fetchLocation = async () => {
             try {
-                const permission = await navigator.permissions.query({
-                    name: "geolocation" as PermissionName,
-                });
-
-                if (permission.state === "denied") {
-                    // User has permanently blocked location access
-                    setLocationError(true);
-                    toast({
-                        title: "Location access blocked",
-                        description:
-                            "Please enable location access in your browser settings to detect your location automatically.",
-                        variant: "destructive",
-                    });
-                    return;
-                }
-                // permission granted, collect user's location
                 navigator.geolocation.getCurrentPosition(
                     async (pos) => {
                         const { latitude, longitude } = pos.coords;
@@ -151,19 +135,24 @@ const MoodForm: React.FC = () => {
                     (err) => {
                         console.warn("Geolocation failed:", err.message);
                         setLocationError(true);
+
+                        if (err.code === err.PERMISSION_DENIED) {
+                            toast({
+                                title: "Location access blocked",
+                                description:
+                                    "Please enable location access in your browser settings to detect your location automatically.",
+                                variant: "destructive",
+                            });
+                        }
                     },
                     { timeout: 10000 }
                 );
             } catch (err) {
-                console.error("Permission API check failed:", err);
-                toast({
-                    title: "Location check failed",
-                    description: "Unable to verify location permission. Try refreshing or manually type your location.",
-                    variant: "destructive",
-                });
+                console.error("Unexpected error:", err);
                 setLocationError(true);
             }
         };
+
 
         fetchLocation();
 
