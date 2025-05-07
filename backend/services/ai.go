@@ -40,9 +40,11 @@ func GenerateMealSuggestion(mood, time, location, uuid string) string {
 	]
 	
 	Here is my context:
+	- UUID: %s
 	- Mood: %s
 	- Time: %s
-	- Location: %s`, mood, time, location),
+	- Location: %s`, 
+	uuid, mood, time, location),
 	}
 
 	// Register tools
