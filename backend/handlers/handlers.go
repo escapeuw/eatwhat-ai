@@ -56,9 +56,27 @@ func HandleSuggest(c *gin.Context) {
 		Location: input.Location,
 	})
 	fmt.Println("Responding with suggesting:", suggestion)
-	var parsed []map[string]string
-	_ = json.Unmarshal([]byte(suggestion), &parsed)
-	c.JSON(http.StatusOK, gin.H{"suggestion": parsed})
+
+	type MealResponse struct {
+		Reason      string `json:"reason"`
+		Suggestions []struct {
+			Name        string `json:"name"`
+			Description string `json:"description"`
+		} `json:"suggestions"`
+	}
+	
+	var parsed MealResponse
+	if err := json.Unmarshal([]byte(suggestion), &parsed); err != nil {
+		log.Println("Failed to parse GPT response:", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Invalid AI response format"})
+		return
+	}
+	
+	c.JSON(http.StatusOK, gin.H{
+	"reason":      parsed.Reason,
+	"suggestions": parsed.Suggestions,
+})
+
 
 }
 

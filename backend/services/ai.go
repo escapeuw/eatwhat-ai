@@ -23,9 +23,11 @@ func GenerateMealSuggestion(mood, time, location, uuid string) string {
 You may use available tools to retrieve the user's recent preferences or feedback if helpful.
 However, if the tools return no data, you MUST still generate suggestions based on the user's current context.
 
-Always respond ONLY with a valid JSON array in this format:
+Always respond ONLY with a valid JSON object in this format:
 	
-	[
+{
+	"reason": "Short explanation of how the suggestions were chosen.",
+	"suggestions": [
 	  {
 		"name": "Meal Name",
 		"description": "Short description of the meal."
@@ -39,6 +41,7 @@ Always respond ONLY with a valid JSON array in this format:
 		"description": "Short description of the meal."
 	  }
 	]
+}
 	
 	Here is my context:
 	- UUID: %s
