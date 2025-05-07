@@ -125,32 +125,28 @@ const MoodForm: React.FC = () => {
         setTimeDescription(getTimeDescription());
 
         const fetchLocation = async () => {
-            try {
-                navigator.geolocation.getCurrentPosition(
-                    async (pos) => {
-                        const { latitude, longitude } = pos.coords;
-                        const readableLocation = await reverseGeocode(latitude, longitude);
-                        setLocation(readableLocation);
-                    },
-                    (err) => {
-                        console.warn("Geolocation failed:", err.message);
-                        setLocationError(true);
+            navigator.geolocation.getCurrentPosition(
+                async (pos) => {
+                    const { latitude, longitude } = pos.coords;
+                    const readableLocation = await reverseGeocode(latitude, longitude);
+                    setLocation(readableLocation);
+                },
+                (err) => {
+                    console.warn("Geolocation failed:", err.message);
+                    setLocationError(true);
 
-                        if (err.code === err.PERMISSION_DENIED) {
-                            toast({
-                                title: "Location access blocked",
-                                description:
-                                    "Please enable location access in your browser settings to detect your location automatically.",
-                                variant: "destructive",
-                            });
-                        }
-                    },
-                    { timeout: 10000 }
-                );
-            } catch (err) {
-                console.error("Unexpected error:", err);
-                setLocationError(true);
-            }
+                    // Make sure this block executes
+                    if (err.code === err.PERMISSION_DENIED) {
+                        toast({
+                            title: "Location access blocked",
+                            description:
+                                "Please enable location access in your browser settings to detect your location automatically.",
+                            variant: "destructive",
+                        });
+                    }
+                },
+                { timeout: 10000 }
+            );
         };
 
 
