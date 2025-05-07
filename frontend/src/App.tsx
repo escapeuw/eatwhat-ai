@@ -1,6 +1,6 @@
 import './App.css'
 import { AppProvider, useAppContext } from './context/AppContext';
-import { JSX, useState, useEffect } from "react";
+import { JSX, useEffect } from "react";
 import MoodForm from "./components/MoodForm";
 import Header from './components/Header';
 import LandingView from './components/LandingView';
@@ -13,7 +13,7 @@ import { v4 as uuidv4, validate as validateUuid } from 'uuid';
 import "./index.css"; // contains light/dark theme vars
 
 function AppContent(): JSX.Element {
-  const { currentView, setCurrentView, suggestionResponse, uuid, setUuid } = useAppContext();
+  const { currentView, setCurrentView, suggestionResponse, setUuid } = useAppContext();
   const isMobile = window.innerWidth < 600;
 
   // Set UUID
