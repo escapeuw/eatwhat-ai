@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"bytes"             // ✅ for bytes.NewBuffer
+	"io"                // ✅ for io.ReadAll and io.NopCloser
 	"encoding/json"
 	"fmt"
 	"net/http"
