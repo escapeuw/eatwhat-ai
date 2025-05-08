@@ -12,6 +12,7 @@ import (
 
 func main() {
 	db.ConnectDB()
+	
 	db.DB.AutoMigrate(
 		&models.User{},
 		&models.Mood{},

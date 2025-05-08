@@ -24,7 +24,7 @@ type Mood struct {
 
 type Feedback struct {
 	gorm.Model
-	UserID   uint
+	UserID   uint   `gorm:"index:idx_user_created_at"`
 	MealName string
 	Comment  string
 	WasGood  bool
@@ -33,10 +33,9 @@ type Feedback struct {
 	Location string
 }
 
-// for user's strict preference on food
 type FoodPreference struct {
 	gorm.Model
-	UserID    uint
+	UserID    uint     `gorm:"index:idx_user_created_at"`
 	Suggested []string `gorm:"serializer:json"`
 	Selected  string
 }

@@ -12,7 +12,7 @@ import (
 var DB *gorm.DB
 
 func ConnectDB() {
-  _ = godotenv.Load("backend/.env")
+  _ = godotenv.Load()
   fmt.Println("Loaded DB_URL:", os.Getenv("DB_URL"))
 
   dsn := os.Getenv("DB_URL")
