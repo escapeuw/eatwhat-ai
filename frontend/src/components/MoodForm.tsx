@@ -14,6 +14,7 @@ const MoodForm: React.FC = () => {
     const [location, setLocation] = useState<string>("");
     const [locationError, setLocationError] = useState(false);
     const [timeDescription, setTimeDescription] = useState("");
+    const [loading, setLoading] = useState(false);
 
 
     const OPENCAGE_API_KEY = import.meta.env.VITE_OPENCAGE_API_KEY;
@@ -60,6 +61,7 @@ const MoodForm: React.FC = () => {
             });
             return;
         }
+        setLoading(true);
         /*
         const isInvalidLocation =
             location !== "" && /[^ㄱ-ㅎ가-힣a-zA-Z\s,]/.test(location);
@@ -73,7 +75,7 @@ const MoodForm: React.FC = () => {
             setLocation("");
             return;
         } */
-        console.log(uuid, input);
+
         const payload = {
             uuid,
             mood: input,
@@ -97,7 +99,7 @@ const MoodForm: React.FC = () => {
             }
 
             const data = await res.json();
-            console.log("typeof setSuggestionResponse:", typeof setSuggestionResponse);
+
             console.log("Suggestions received", data);
 
             setSuggestionResponse(data);  // store in state
@@ -111,6 +113,8 @@ const MoodForm: React.FC = () => {
                 description: error.message || "Something went wrong.",
                 variant: "destructive",
             });
+        } finally {
+            setLoading(false);
         }
 
 
@@ -165,76 +169,82 @@ const MoodForm: React.FC = () => {
                     What is your <span className="text-gradient">mood</span> today? 😋
                 </h2>
 
-
-                <form onSubmit={handleSubmit} className="mood-form">
-                    <div className="input-container">
-                        <input
-                            value={mood}
-                            onChange={(e) => {
-                                setMood(e.target.value);
-
-                                if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
-
-                                setMoodTyping(true);
-
-                                typingTimeoutRef.current = setTimeout(() => {
-                                    setMoodTyping(false);
-                                }, 1000);
-                            }}
-
-                            placeholder="I'm feeling..."
-                            className="mood-input"
-                            maxLength={30}
-                            autoFocus
-                        />
-                        {moodTyping && (
-                            <div className="typing-indicator">
-                                <div className="typing-dot"></div>
-                                <div className="typing-dot"></div>
-                                <div className="typing-dot"></div>
-                            </div>
-                        )}
+                {loading ? (
+                    <div className="loading-container">
+                        <div className="spinner" />
+                        <p>Finding your meal...</p>
                     </div>
-                    {locationError && (
+                ) : (
+                    <form onSubmit={handleSubmit} className="mood-form">
                         <div className="input-container">
                             <input
-                                value={location}
+                                value={mood}
                                 onChange={(e) => {
-                                    setLocation(e.target.value);
+                                    setMood(e.target.value);
 
                                     if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
 
-                                    setLocationTyping(true);
+                                    setMoodTyping(true);
 
                                     typingTimeoutRef.current = setTimeout(() => {
-                                        setLocationTyping(false);
+                                        setMoodTyping(false);
                                     }, 1000);
                                 }}
-                                placeholder="My location is... (up to 30 letters)"
+
+                                placeholder="I'm feeling..."
                                 className="mood-input"
-                                maxLength={30} />
-                            {locationTyping && (
+                                maxLength={30}
+                                autoFocus
+                            />
+                            {moodTyping && (
                                 <div className="typing-indicator">
                                     <div className="typing-dot"></div>
                                     <div className="typing-dot"></div>
                                     <div className="typing-dot"></div>
                                 </div>
                             )}
-                        </div>)}
+                        </div>
+                        {locationError && (
+                            <div className="input-container">
+                                <input
+                                    value={location}
+                                    onChange={(e) => {
+                                        setLocation(e.target.value);
 
-                    <div className="button-container">
-                        <button
-                            type="submit"
-                            className="primary-button"
-                        >
-                            Find Meal
-                        </button>
-                    </div>
+                                        if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
 
-                    <p className="mood-hint">
-                        Try: "energetic", "stressed and lazy", "celebratory", "melancholic"...
-                    </p>
-                </form>
+                                        setLocationTyping(true);
+
+                                        typingTimeoutRef.current = setTimeout(() => {
+                                            setLocationTyping(false);
+                                        }, 1000);
+                                    }}
+                                    placeholder="My location is... (up to 30 letters)"
+                                    className="mood-input"
+                                    maxLength={30} />
+                                {locationTyping && (
+                                    <div className="typing-indicator">
+                                        <div className="typing-dot"></div>
+                                        <div className="typing-dot"></div>
+                                        <div className="typing-dot"></div>
+                                    </div>
+                                )}
+                            </div>)}
+
+                        <div className="button-container">
+                            <button
+                                type="submit"
+                                className="primary-button"
+                            >
+                                Find Meal
+                            </button>
+                        </div>
+
+                        <p className="mood-hint">
+                            Try: "energetic", "stressed and lazy", "celebratory", "melancholic"...
+                        </p>
+                    </form>
+                )}
             </div>
 
             <div className="glass info-card">
